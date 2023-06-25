@@ -12,7 +12,7 @@ class Splash_Screen2 extends StatelessWidget {
       // splashscreen2Y7T (3:21)
       padding:  EdgeInsets.fromLTRB(0*fem, 36.5*fem, 0*fem, 0*fem),
       width:  double.infinity,
-      decoration:  BoxDecoration (
+      decoration:  const BoxDecoration (
         color:  Color(0xffffffff),
       ),
       child:
@@ -46,7 +46,7 @@ class Splash_Screen2 extends StatelessWidget {
                           fontSize:  32*ffem,
                           fontWeight:  FontWeight.w700,
                           height:  2.0903754395*ffem/fem,
-                          color:  Color(0xff0093d2),
+                          color:  const Color(0xff0093d2),
                         ),
                       ),
                     ),
@@ -67,19 +67,21 @@ class Splash_Screen2 extends StatelessWidget {
                       width:  80*fem,
                       height:  51*fem,
                       decoration:  BoxDecoration (
-                        color:  Color(0xff0093d2),
+                        color:  const Color(0xff0093d2),
                         borderRadius:  BorderRadius.circular(10*fem),
                       ),
                       child:
-                      Text(
-                        'ابدا الأن',
-                        textAlign:  TextAlign.center,
-                        style:  GoogleFonts.amiri (
+                      Center(
+                        child: Text(
+                          'ابدأ الأن',
+                          textAlign:  TextAlign.center,
+                          style:  GoogleFonts.amiri (
 
-                          fontSize:  17.5*ffem,
-                          fontWeight:  FontWeight.w400,
-                          height:  1.76*ffem/fem,
-                          color:  Color(0xffffffff),
+                            fontSize:  17.5*ffem,
+                            fontWeight:  FontWeight.w400,
+                            height:  1.76*ffem/fem,
+                            color:  Color(0xffffffff),
+                          ),
                         ),
                       ),
                     ),
@@ -110,32 +112,23 @@ class Splash_Screen2 extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-// removebgpreview1EgR (3:4)
-                  left:  0*fem,
-                  top:  175.5*fem,
-                  child:
-                  Align(
-                    child:
-                    SizedBox(
-                      width:  158*fem,
-                      height:  164*fem,
-                     // child:
-                      // Image.network(
-                      //   [Image url]
-                      //   fit:  BoxFit.cover,
-                      // ),
-                    ),
-                  ),
-                ),
+                const Positioned(
+                  left: 0,
+                    top: 150,
+                    child: Align(
+                      child: Image(
+                          width: 100,
+                          image: AssetImage('assets/pictures/sidepic.png')),
+                    ))
+
               ],
             ),
           ),
-         Container(
-           padding: EdgeInsets.all(10),
-           width: 360,
-           height: 360,
-             child: Image(image: AssetImage('assets/pictures/abdelbasit.jpg')))
+         const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+             children:  [Image(
+                 width: 300,
+                 image: AssetImage('assets/pictures/abdelbasit.jpg'))])
 
       ],
     ),
