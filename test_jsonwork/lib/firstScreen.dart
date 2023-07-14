@@ -39,9 +39,21 @@ class _SimpleTreeViewState extends State<SimpleTreeView> {
       ),
       body: Center(
 
-          child: mynodes.isEmpty?
-          Container(height: double.infinity,width: double.infinity,color: Colors.cyan,):
-          TreeView(controller: TVC)
+          child: FutureBuilder(
+            future: dataLoad(),
+            builder: (ctx, snapshot) {
+             return  (mynodes.isNotEmpty)? TreeView(controller: TVC):
+             Container(height: double.infinity,width: double.infinity,color: Colors.cyan,);
+
+            },
+
+
+
+          ),
+
+
+
+
       ),
 
     );
@@ -64,13 +76,23 @@ class _SimpleTreeViewState extends State<SimpleTreeView> {
     //print(myHeaders[0].topics![0].nestedTopics![7].nestedTopicsB![2].title);
     myHeaders.forEach((element) {
       List<Node> tempNodes = <Node>[];
+      List<Node> tempNodes2 = <Node>[];
 
       if (element.sectionName != null) {
         element.topics!.forEach((subelement) {
           print(subelement.header);
+          // if(subelement.nestedTopics!.isNotEmpty) {
+          //   subelement.nestedTopics!.forEach((subsubelement) {
+          //     tempNodes2.add(
+          //         Node(key: subsubelement.title!, label: subsubelement.title!)
+          //     );
+          //   });
+          //
+          // }
           tempNodes.add(
-              Node(key: subelement.header!,label:subelement.header! )
-          );
+              Node(key: subelement.header!, label: subelement.header!,children: tempNodes2));
+          tempNodes2.clear();
+
         });
         print(tempNodes);
         mynodes
