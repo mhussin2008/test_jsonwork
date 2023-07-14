@@ -83,7 +83,23 @@ class _SimpleTreeViewState extends State<SimpleTreeView> {
         element.topics!.forEach((subelement) {
           print(subelement.header);
           //tempNodes2.add(Node(key: 'ggg',label: 'gggg'));
-          // if(subelement.nestedTopics!.isNotEmpty) {
+           if(subelement.nestedTopics!.isNotEmpty) {
+             subelement.nestedTopics!.forEach((subsubelement) {
+               if(subsubelement.title != null ){
+
+                 tempNodes2.add(Node(
+                 key: subsubelement.title!,
+                 label: subsubelement.title!,
+                 children: [Node(
+                   key: subsubelement.body!,
+                   label: subsubelement.body!,
+                 )]));}
+
+             });
+
+
+           }
+           //{
           //   subelement.nestedTopics!.forEach((subsubelement) {
           //     tempNodes2.add(
           //         Node(key: subsubelement.title!, label: subsubelement.title!)
