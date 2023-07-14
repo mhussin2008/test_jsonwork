@@ -21,7 +21,7 @@ class _SimpleTreeViewState extends State<SimpleTreeView> {
   @override
   void initState() {
     // TODO: implement initState
-    dataLoad().then((_) => print('done'));
+    //dataLoad().then((_) => print('done'));
     super.initState();
   }
 
@@ -64,6 +64,7 @@ class _SimpleTreeViewState extends State<SimpleTreeView> {
   }
 
   Future<void> dataLoad() async {
+    if (mynodes.isNotEmpty){return;}
     final String response =
         await rootBundle.loadString('assets/text/jsondata.json');
     List<dynamic> data = await json.decode(response);
@@ -81,6 +82,7 @@ class _SimpleTreeViewState extends State<SimpleTreeView> {
       if (element.sectionName != null) {
         element.topics!.forEach((subelement) {
           print(subelement.header);
+          //tempNodes2.add(Node(key: 'ggg',label: 'gggg'));
           // if(subelement.nestedTopics!.isNotEmpty) {
           //   subelement.nestedTopics!.forEach((subsubelement) {
           //     tempNodes2.add(
@@ -91,7 +93,7 @@ class _SimpleTreeViewState extends State<SimpleTreeView> {
           // }
           tempNodes.add(
               Node(key: subelement.header!, label: subelement.header!,children: tempNodes2));
-          tempNodes2.clear();
+          //tempNodes2.clear();
 
         });
         print(tempNodes);
