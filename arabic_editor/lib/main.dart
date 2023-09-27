@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/services.dart';
 
+//updated now
 import 'package:flutter/material.dart';
 String arab='           ';
 String arab2=arab.split(' ').reversed.join();
@@ -59,7 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Widget> _wl=[];
     arabList.asMap().entries.forEach((element) {
       _wl.add(GestureDetector(
-        onDoubleTap: (){
+        onDoubleTap: () async {
+          await Clipboard.setData(ClipboardData(text: element.value));
           print(element.value);
           print(element.key);
           print(element.value.runes);
