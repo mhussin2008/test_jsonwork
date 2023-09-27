@@ -147,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
 
-              _getAscii(arab)
+              //_getAscii(arab)
             ]+wList(),
           ),
         ),
