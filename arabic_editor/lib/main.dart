@@ -67,10 +67,20 @@ class _MyHomePageState extends State<MyHomePage> {
           print(element.key);
           print(element.value.runes);
         },
-        child: Text(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
 
-            element.value,
-          style:_myStyle,
+                element.value,
+              style:_myStyle,
+            )]+
+            element.value.runes.map((e) {
+              
+              
+              return Text(' ['+e.toString()+'] ');
+            }).toList()
+          ,
         ),
       ));
     });
