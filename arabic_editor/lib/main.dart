@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       title: 'Flutter Demo',
       theme: ThemeData(
 
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ));
     });
-    return _wl;
+    return  _wl;
   }
 
   Wrap _getAscii(String _input){
@@ -148,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
         text: TextSpan(text: arab,style: _myStyle) );
 
 
+
     return Scaffold(
       appBar: AppBar(
 
@@ -162,54 +164,69 @@ class _MyHomePageState extends State<MyHomePage> {
 
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
+          child: SingleChildScrollView(
+            child: Column(
 
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 10,),
-              Text(tailoredString
-              ,style: _myStyle2,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(onPressed: ()  {
-                    setState(()  {
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 10,),
 
-                      //rejoin();
-                      //Clipboard.setData(ClipboardData(text:''));
-                      tailoredString='';
-                      //rejoin();
-                    });
-                  }, child: Text('Clear clipboard')),
-                  ElevatedButton(onPressed: ()  {
-                    setState(()  {
+                Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    IconButton(onPressed: (){
+                      if(tailoredString.length>0){
+                        setState(() {
+                          tailoredString=tailoredString.substring(1);
+                        });
+                      }
+                    },
+                        icon: Icon(Icons.backspace,size: 20,)),
+                    Text(tailoredString
+                    ,style: _myStyle2,
+                    ),
+                  ],
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(onPressed: ()  {
+                      setState(()  {
 
-                      //rejoin();
-                      Clipboard.setData(ClipboardData(text:tailoredString));
-                    });
-                  }, child: Text('Set to clipboard')),
+                        //rejoin();
+                        //Clipboard.setData(ClipboardData(text:''));
+                        tailoredString='';
+                        //rejoin();
+                      });
+                    }, child: Text('Clear clipboard')),
+                    ElevatedButton(onPressed: ()  {
+                      setState(()  {
 
-                  ElevatedButton(onPressed: () async {
-                    await rejoin();
-                    setState(()  {
+                        //rejoin();
+                        Clipboard.setData(ClipboardData(text:tailoredString));
+                      });
+                    }, child: Text('Set to clipboard')),
 
-                      //Clipboard.setData(ClipboardData(text: element.value));
-                    });
-                  }, child: Text('get from clipboard')),
-                ],
-              ),
+                    ElevatedButton(onPressed: () async {
+                      await rejoin();
+                      setState(()  {
 
-              SizedBox(height: 20,),
-              Text(
-                arab2,
-                style: _myStyle,
-                textDirection: TextDirection.rtl,
-                textAlign: TextAlign.right,
-              ),
+                        //Clipboard.setData(ClipboardData(text: element.value));
+                      });
+                    }, child: Text('get from clipboard')),
+                  ],
+                ),
+
+                SizedBox(height: 20,),
+                Text(
+                  arab2,
+                  style: _myStyle,
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.right,
+                ),
 
 
-              //_getAscii(arab)
-            ]+wList(),
+                //_getAscii(arab)
+              ]+ wList(),
+            ),
           ),
         ),
       ),
