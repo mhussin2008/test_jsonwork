@@ -56,6 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
       color: Colors.blueAccent,
 
       fontSize: 20);
+  var _myStyle2 = TextStyle(
+      inherit: true,
+
+      fontFamily: 'mshqq',
+      color: Colors.red,
+
+      fontSize: 20);
 
   List<Widget> wList(){
     List<Widget> _wl=[];
@@ -74,12 +81,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 element.value,
               style:_myStyle,
-            )]+
-            element.value.runes.map((e) {
-              
-              
-              return Text(' ['+e.toString()+'] ');
-            }).toList()
+            )]..addAll(element.value.runes.map((e) {
+            return Column(
+              children: [
+                Text(
+                    String.fromCharCode(e),
+                  style: _myStyle2,
+
+                )
+                ,
+                Text(' ['+e.toString()+'] '),
+              ],
+            );
+          }) )
+            
           ,
         ),
       ));
@@ -139,6 +154,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(onPressed: ()  {
+                    setState(()  {
+
+                      //rejoin();
+                      Clipboard.setData(ClipboardData(text:''));
+                      rejoin();
+                    });
+                  }, child: Text('Clear clipboard')),
+                  ElevatedButton(onPressed: ()  {
+                    setState(()  {
+
+                      //rejoin();
+                      Clipboard.setData(ClipboardData(text:arab2));
+                    });
+                  }, child: Text('Set to clipboard')),
+
+                  ElevatedButton(onPressed: () async {
+                    await rejoin();
+                    setState(()  {
+
+                      //Clipboard.setData(ClipboardData(text: element.value));
+                    });
+                  }, child: Text('get from clipboard')),
+                ],
+              ),
+
+              SizedBox(height: 20,),
               Text(
                 arab2,
                 style: _myStyle,
@@ -168,5 +212,13 @@ class _MyHomePageState extends State<MyHomePage> {
     //     fontSize: 16.0
     // );
     
+  }
+
+  Future<void> rejoin() async {
+    ClipboardData? data= await Clipboard.getData(Clipboard.kTextPlain);
+    arab=data!.text??'';
+    arab2=arab.split(' ').reversed.join();
+    arabList=arab.split(' ').toList();
+    wList();
   }
 }
