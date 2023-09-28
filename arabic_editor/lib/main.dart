@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 String arab='           ';
 String arab2=arab.split(' ').reversed.join();
 List<String> arabList=arab.split(' ').toList();
+String tailoredString='';
 
 //String arab3='﴿           ﴾';
 //String t='';
@@ -62,14 +63,16 @@ class _MyHomePageState extends State<MyHomePage> {
       fontFamily: 'mshqq',
       color: Colors.red,
 
-      fontSize: 20);
+
+      fontSize: 30);
 
   List<Widget> wList(){
     List<Widget> _wl=[];
     arabList.asMap().entries.forEach((element) {
       _wl.add(GestureDetector(
-        onDoubleTap: () async {
-          await Clipboard.setData(ClipboardData(text: element.value));
+        onTap: () async {
+          //await Clipboard.setData(ClipboardData(text: element.value));
+          //tailoredString+=String.fromCharCode(element.value)
           print(element.value);
           print(element.key);
           print(element.value.runes);
@@ -82,16 +85,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 element.value,
               style:_myStyle,
             )]..addAll(element.value.runes.map((e) {
-            return Column(
-              children: [
-                Text(
-                    String.fromCharCode(e),
-                  style: _myStyle2,
+            return GestureDetector(
+              onTap: (){
+                print(e.runtimeType);
 
-                )
-                ,
-                Text(' ['+e.toString()+'] '),
-              ],
+                setState(() {
+                  tailoredString=String.fromCharCode(e)+tailoredString;
+                });
+              },
+              child: Column(
+                children: [
+                  Text(
+                      String.fromCharCode(e),
+                    style: _myStyle2,
+
+                  )
+                  ,
+                  Text(' ['+e.toString()+'] '),
+                ],
+              ),
             );
           }) )
             
@@ -108,10 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _input.characters.toList().asMap().entries.forEach((element) {
     myWidgetsList.add(GestureDetector(
-        onDoubleTap: (){
+        onTap: (){
       print(_input.characters.runtimeType);
-      //print(element);
-
+      print(element);
+      //tailoredString+=String.fromCharCode(element.value.);
       _characterTapped(element.key);
 
     },
@@ -154,21 +166,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(height: 10,),
+              Text(tailoredString
+              ,style: _myStyle2,
+              ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(onPressed: ()  {
                     setState(()  {
 
                       //rejoin();
-                      Clipboard.setData(ClipboardData(text:''));
-                      rejoin();
+                      //Clipboard.setData(ClipboardData(text:''));
+                      tailoredString='';
+                      //rejoin();
                     });
                   }, child: Text('Clear clipboard')),
                   ElevatedButton(onPressed: ()  {
                     setState(()  {
 
                       //rejoin();
-                      Clipboard.setData(ClipboardData(text:arab2));
+                      Clipboard.setData(ClipboardData(text:tailoredString));
                     });
                   }, child: Text('Set to clipboard')),
 
